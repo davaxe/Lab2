@@ -1,1 +1,1 @@
-g++ -std=c++17 -Wall -Wextra -pedantic -Weffc++ -Wold-style-cast precompiled/test_main.o list_test.cpp & a.exe
+g++ -std=c++17 -Wall -Wextra -pedantic -Weffc++ -Wold-style-cast precompiled/test_main.o list_test.cpp list.cpp & a.exe
