@@ -45,4 +45,5 @@ private:
     int m_length;
 
     Node* get_node(int index) const;
+    void clear_recursive(Node *node);
 };

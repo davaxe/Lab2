@@ -1,5 +1,6 @@
 #include "list.h"
 #include <sstream>
+#include <iostream>
 
 List::List()
     : m_head(nullptr), m_tail(nullptr), m_length(0)
@@ -37,7 +38,7 @@ List::List(const List&& other)
 
 List::~List()
 {
-    
+    clear();
 }
 
 void List::push_back(int value)
@@ -113,7 +114,10 @@ int List::pop_front()
 
 void List::clear()
 {
-
+    clear_recursive(m_head);
+    m_head = nullptr;
+    m_tail = nullptr;
+    m_length = 0;
 }
 
 int List::front() const
@@ -188,6 +192,19 @@ List::Node* List::get_node(int index) const
         current = current->get_next();
     }
     return current;
+}
+
+void List::clear_recursive(Node* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        clear_recursive(node->get_next());
+        delete node;
+    }
 }
 
 /*===========================================================================*/

@@ -105,10 +105,11 @@ TEST_CASE("Add/remove values")
         CHECK(l2.length() == 0);
         CHECK(l1.length() == 1);   
     }
-    // SECTION("Clear list, clear")
-    // {
-    //     List l1 {1, 2, 3, 4};
-    //     l1.clear();
-    //     CHECK(l1.empty());
-    // }
+    SECTION("Clear list, clear")
+    {
+        List l1 {1, 2, 3, 4};
+        l1.clear();
+        CHECK(l1.to_string() == "[]");
+        CHECK(l1.empty());
+    }
 }
