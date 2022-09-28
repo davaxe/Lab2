@@ -1,6 +1,5 @@
 #include "list.h"
 #include <sstream>
-#include <iostream>
 
 List::List()
     : m_head(nullptr), m_tail(nullptr), m_length(0)
@@ -16,10 +15,10 @@ List::List(std::initializer_list<int> values)
     }
 }
 
-List::List(const List &other)
+List::List(const List& other)
     : List{}
 {
-    Node *current = other.m_head;
+    Node* current = other.m_head;
     while (current != nullptr)
     {
         push_back(current->get_value());
@@ -27,7 +26,7 @@ List::List(const List &other)
     }
 }
 
-List::List(List &&other)
+List::List(List&& other)
     : List{}
 {
     List temp{*this};
@@ -52,7 +51,7 @@ void List::push_back(int value)
     }
     else
     {
-        Node *temp = new Node{value, nullptr};
+        Node* temp = new Node{value, nullptr};
         m_tail->set_next(temp);
         m_tail = temp;
     }
@@ -90,7 +89,7 @@ int List::pop_back()
     else
     {
         value = m_tail->get_value();
-        Node *second_last = get_node(m_length - 2);
+        Node* second_last = get_node(m_length - 2);
         second_last->set_next(nullptr);
         delete m_tail;
         m_tail = second_last;
@@ -106,7 +105,7 @@ int List::pop_front()
         throw std::logic_error("List is empty.");
     }
     int value = m_head->get_value();
-    Node *new_first = m_head->get_next();
+    Node* new_first = m_head->get_next();
     delete m_head;
     m_head = new_first;
     m_length--;
@@ -166,7 +165,7 @@ std::string List::to_string() const
     {
         return "[]";
     }
-    Node *current{m_head};
+    Node* current{m_head};
     ss << "[";
     while (current->get_next() != nullptr)
     {
@@ -197,13 +196,13 @@ List& List::operator=(List&& other)
     return *this;
 }
 
-List::Node *List::get_node(int index) const
+List::Node* List::get_node(int index) const
 {
     if (index < 0 || index >= m_length)
     {
         throw std::out_of_range("Index out of range.");
     }
-    Node *current{m_head};
+    Node* current{m_head};
     for (int i = 0; i < index; i++)
     {
         current = current->get_next();
@@ -211,7 +210,7 @@ List::Node *List::get_node(int index) const
     return current;
 }
 
-void List::clear_recursive(Node *node)
+void List::clear_recursive(Node* node)
 {
     if (node == nullptr)
     {
@@ -224,7 +223,7 @@ void List::clear_recursive(Node *node)
     }
 }
 
-void List::split_list(Node *head, Node *&front, Node *&back)
+void List::split_list(Node* head, Node*& front, Node*& back)
 {
     if (head == nullptr || head->get_next() == nullptr)
     {
@@ -233,8 +232,8 @@ void List::split_list(Node *head, Node *&front, Node *&back)
         return;
     }
 
-    Node *slow = head;
-    Node *fast = head->get_next();
+    Node* slow = head;
+    Node* fast = head->get_next();
 
     while (fast != nullptr)
     {
@@ -250,7 +249,7 @@ void List::split_list(Node *head, Node *&front, Node *&back)
     slow->set_next(nullptr);
 }
 
-List::Node *List::combine_lists(Node *head_a, Node *head_b)
+List::Node *List::combine_lists(Node* head_a, Node* head_b)
 {
     if (head_a == nullptr)
     {
@@ -261,7 +260,7 @@ List::Node *List::combine_lists(Node *head_a, Node *head_b)
         return head_a;
     }
 
-    Node *combined{nullptr};
+    Node* combined{nullptr};
     if (head_a->get_value() <= head_b->get_value())
     {
         combined = head_a;
@@ -275,14 +274,14 @@ List::Node *List::combine_lists(Node *head_a, Node *head_b)
     return combined;
 }
 
-void List::merge_sort(Node *&head)
+void List::merge_sort(Node*& head)
 {
     if (head == nullptr || head->get_next() == nullptr)
     {
         return;
     }
-    Node *head_a;
-    Node *head_b;
+    Node* head_a;
+    Node* head_b;
 
     split_list(head, head_a, head_b);
     merge_sort(head_a);
@@ -303,12 +302,12 @@ List::Node::Node(int value)
 {
 }
 
-List::Node::Node(int value, Node *next)
+List::Node::Node(int value, Node* next)
     : m_value{value}, m_next{next}
 {
 }
 
-void List::Node::set_next(Node *next)
+void List::Node::set_next(Node* next)
 {
     m_next = next;
 }
@@ -317,7 +316,7 @@ void List::Node::set_value(int value)
     m_value = value;
 }
 
-List::Node *List::Node::get_next()
+List::Node* List::Node::get_next() const
 {
     return m_next;
 }
